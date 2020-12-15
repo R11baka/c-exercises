@@ -17,5 +17,5 @@ run_lab5_pointer: build-lab5_pointer
 	./lab5_pointer 50 10
 
 clean:
-	rm -f *.o lab5_array
+	rm -f *.o lab5_array lab_pointer
 
