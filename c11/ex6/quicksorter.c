@@ -5,7 +5,6 @@
 #include "src/memcheck.h"
 
 
-
 int main(int argc, char *argv[]) {
     node *tail = NULL;
     if (argc == 1) {
@@ -13,10 +12,15 @@ int main(int argc, char *argv[]) {
     }
     node *t = NULL;
     t = create_node(2, t);
+    t = create_node(1, t);
     t = create_node(3, t);
+    t = create_node(5, t);
+    t = create_node(2, t);
     tail = quickSort(t);
-    printf("LIST \n");
+    printf("--LIST \n");
     print_list(tail);
-    printf("   end list");
+    printf("--end list \n");
+    quickSort(tail);
+    print_list(tail);
     return 0;
 }

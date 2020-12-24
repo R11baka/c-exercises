@@ -20,8 +20,8 @@ memcheck.o: src/memcheck.c src/memcheck.h
 test:
 	./run_test
 
-main:
-	./quicksorter 1 2 
+main: quicksorter
+	./quicksorter 1 4 3
 
 check:
 	c_style_check quicksorter.c

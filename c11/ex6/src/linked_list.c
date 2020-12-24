@@ -184,32 +184,28 @@ is_sorted(node *list) {
 }
 
 node *quickSort(node *head) {
-    int pivot;
-    if (head->next == NULL) {
-        return head;
+    if (head == NULL) {
+        return NULL;
     }
-    pivot = head->data;
-    node *pivotElem = create_node(pivot, NULL);
-    printf("Select pivot %d ", pivot);
-    node *smaller = NULL, *bigger = NULL, *prev = NULL;
-    prev = head->next;
-    while (prev != NULL) {
-        if (prev->data > pivot) {
-            printf("Bigger %d ", prev->data);
-            bigger = create_node(prev->data, bigger);
+    int pivotValue = head->data;
+    head = head->next;
+    // create smaller
+    node *smaller = NULL;
+    node *bigger = NULL;
+    while (head != NULL) {
+        int currentValue = head->data;
+        if (currentValue <= pivotValue) {
+            smaller = create_node(currentValue, smaller);
         } else {
-            printf("Smaller %d ", prev->data);
-            smaller = create_node(prev->data, smaller);
+            bigger = create_node(currentValue, bigger);
         }
-        prev = prev->next;
+        head = head->next;
     }
-    node *lSmaller = quickSort(smaller);
-    node *bBigger = quickSort(bigger);
-    free_list(smaller);
-    free_list(bigger);
-    //return bigger;
-    node *l1 = append_lists(smaller, pivotElem);
-    return append_lists(l1, bigger);
+    node *sm = quickSort(smaller);
+    node *bg = quickSort(bigger);
+    node *smallerWithPivot = append_lists(sm, create_node(pivotValue, NULL));
+    return append_lists(smallerWithPivot, bg);
+
 }
 
 
