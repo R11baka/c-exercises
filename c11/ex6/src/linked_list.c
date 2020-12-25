@@ -189,7 +189,6 @@ node *quickSort(node *head) {
     }
     int pivotValue = head->data;
     head = head->next;
-    // create smaller
     node *smaller = NULL;
     node *bigger = NULL;
     while (head != NULL) {
@@ -201,10 +200,18 @@ node *quickSort(node *head) {
         }
         head = head->next;
     }
-    node *sm = quickSort(smaller);
-    node *bg = quickSort(bigger);
-    node *smallerWithPivot = append_lists(sm, create_node(pivotValue, NULL));
-    return append_lists(smallerWithPivot, bg);
+    node *smList = quickSort(smaller);
+    node *bgList = quickSort(bigger);
+    free_list(smaller);
+    free_list(bigger);
+    node *pivotList = create_node(pivotValue, NULL);
+    node *smallerWithPivot = append_lists(smList, pivotList);
+    node *res = append_lists(smallerWithPivot, bgList);
+    free_list(smList);
+    free_list(pivotList);
+    free_list(bgList);
+    free_list(smallerWithPivot);
+    return res;
 
 }
 

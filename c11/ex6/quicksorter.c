@@ -6,21 +6,19 @@
 
 
 int main(int argc, char *argv[]) {
-    node *tail = NULL;
+    node *sortedList = NULL;
     if (argc == 1) {
         printf("usage: quicksorter [-q] number1 [number2 ... ]\n");
     }
-    node *t = NULL;
-    t = create_node(2, t);
-    t = create_node(1, t);
-    t = create_node(3, t);
-    t = create_node(5, t);
-    t = create_node(2, t);
-    tail = quickSort(t);
-    printf("--LIST \n");
-    print_list(tail);
-    printf("--end list \n");
-    quickSort(tail);
-    print_list(tail);
+    node *intiList = NULL;
+    for (int i = 1; i < argc; i++) {
+        intiList = create_node(atoi(argv[i]), intiList);
+    }
+    sortedList = quickSort(intiList);
+    assert(is_sorted(sortedList));
+    print_list(sortedList);
+    free_list(intiList);
+    free_list(sortedList);
+    print_memory_leaks();
     return 0;
 }
